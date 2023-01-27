@@ -5,7 +5,7 @@
 </script>
 
 <header>
-	<div class="corner">
+	<div class="corner bg-green-800">
 		<a href="https://kit.svelte.dev">
 			<img src={logo} alt="SvelteKit" />
 		</a>
