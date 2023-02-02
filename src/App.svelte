@@ -7,13 +7,13 @@
 </script>
 
 <main>
-  <nav class="flex items-center justify-center bg-teal-600 p-6">
+  <nav class="container mx-auto flex items-center justify-center bg-teal-600 p-6">
     <a href="#" on:click={() => (activeTab = Workout)} class="text-white font-medium hover:text-orange-200 {activeTab === Workout ? 'text-orange-200' : ''} ">Workout</a>
     <a href="#" on:click={() => (activeTab = Calendar)} class="ml-6 text-white font-medium hover:text-orange-200 {activeTab === Calendar ? 'text-orange-200' : ''}">Calendar</a>
     <a href="#" on:click={() => (activeTab = Library)} class="ml-6 text-white font-medium hover:text-orange-200 {activeTab === Library ? 'text-orange-200' : ''}">Library</a>
   </nav>
 
-  <div class="container mx-auto">
+  <div class="container mx-auto h-screen flex justify-center py-10 bg-orange-100">
     <svelte:component this={activeTab} />
   </div>
 </main>
