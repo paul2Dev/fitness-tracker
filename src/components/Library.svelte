@@ -1,6 +1,12 @@
 <script>
+  import { Modal } from 'flowbite-svelte'
   import Utils from '../lib/utils.js';
   import { muscleGroups, exercises } from '../store/stores.js';
+
+  let defaultModal = false;
+  let modalTitle = 'Video';
+  let modalContent = '';
+
   const formValues = {
     name: '',
     muscleGroup: '',
@@ -35,8 +41,22 @@
     formValues.videoUrl = '';
   };
 
-  console.log($exercises);
-
+  function showVideo(event) {
+    defaultModal = true;
+    const videoId = Utils.getYoutubeVideoId(event.target.href);
+    modalTitle = event.target.title;
+    modalContent = `<iframe width="560" height="315" 
+                      src="https://www.youtube.com/embed/${videoId}" 
+                      frameborder="0" 
+                      allow="accelerometer; 
+                      autoplay; 
+                      clipboard-write; 
+                      encrypted-media; 
+                      gyroscope; 
+                      picture-in-picture" 
+                      allowfullscreen>
+                    </iframe>`;
+  }
 </script>
 
 <div class="bg-white p-6 rounded-lg shadow-md">
@@ -66,9 +86,15 @@
               <tr>
                 <td class="p-2 border border-teal-600">{exercise.name}</td>
                 <td class="p-2 border border-teal-600">{$muscleGroups.find(group => group.id === exercise.muscleGroup).name}</td>
-                <td class="p-2 border border-teal-600">{#if 'videoUrl' in exercise} <a href="{exercise.videoUrl}" target="_blank" rel="noreferrer">{exercise.videoUrl}</a> {/if}</td>
+                <td class="p-2 border border-teal-600">{#if 'videoUrl' in exercise} <a on:click|preventDefault={showVideo} title="{exercise.name}" href="{exercise.videoUrl}" target="_blank" rel="noreferrer">{exercise.videoUrl}</a> {/if}</td>
               </tr>
             {/each}
         </tbody>
     </table>
 </div>
+
+<Modal title="{modalTitle}" bind:open={defaultModal} autoclose>
+  <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+    {@html modalContent}
+  </p>
+</Modal>
