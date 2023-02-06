@@ -1,4 +1,5 @@
 <script>
+  import Utils from '../lib/utils.js';
   import { muscleGroups, exercises } from '../store/stores.js';
   const formValues = {
     name: '',
@@ -7,15 +8,34 @@
   };
 
   function saveExercise() {
+
+    if(!formValues.name || !formValues.muscleGroup) {
+      alert('Please fill out all fields');
+      return;
+    }
+
+    if(formValues.videoUrl && !Utils.getYoutubeVideoId(formValues.videoUrl)) {
+      alert('Please enter a valid YouTube URL');
+      return;
+    }
+
     exercises.update(exercises => {
       exercises.push({
+        id: crypto.randomUUID(),
         name: formValues.name,
         muscleGroup: formValues.muscleGroup,
-        videoUrl: formValues.videoUrl
+        videoUrl: formValues.videoUrl,
+        created_at: new Date().toISOString()
       });
       return exercises;
     });
+
+    formValues.name = '';
+    formValues.muscleGroup = '';
+    formValues.videoUrl = '';
   };
+
+  console.log($exercises);
 
 </script>
 
@@ -42,7 +62,7 @@
         </tr>
       </thead>
         <tbody>
-            {#each $exercises as exercise, index}
+            {#each $exercises.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()) as exercise, index}
               <tr>
                 <td class="p-2 border border-teal-600">{exercise.name}</td>
                 <td class="p-2 border border-teal-600">{$muscleGroups.find(group => group.id === exercise.muscleGroup).name}</td>
