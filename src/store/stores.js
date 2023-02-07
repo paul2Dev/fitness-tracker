@@ -2,35 +2,35 @@ import { writable } from "svelte/store";
 
 const muscleGroups = writable([
     {
-        id: 1,
+        value: 1,
         name: "Chest",
     },
     {
-        id: 2,
+        value: 2,
         name: "Back",
     },
     {
-        id: 3,
+        value: 3,
         name: "Shoulders",
     },
     {
-        id: 4,
+        value: 4,
         name: "Biceps",
     },
     {
-        id: 5,
+        value: 5,
         name: "Triceps",
     },
     {
-        id: 6,
+        value: 6,
         name: "Abs",
     },
     {
-        id: 7,
+        value: 7,
         name: "Legs",
     },
     {
-        id: 8,
+        value: 8,
         name: "Calves",
     },
 ]);

@@ -1,5 +1,5 @@
 <script>
-  import { Modal } from 'flowbite-svelte'
+  import { Modal, Input, Select, Button } from 'flowbite-svelte'
   import Utils from '../lib/utils.js';
   import { muscleGroups, exercises } from '../store/stores.js';
 
@@ -60,18 +60,11 @@
 </script>
 
 <div class="bg-white p-6 rounded-lg shadow-md">
-    <form class="flex flex-col md:flex-row" on:submit|preventDefault={saveExercise}>
-      <input bind:value={formValues.name} type="text" class="shadow-sm p-2 rounded-lg border border-teal-600 mb-2 md:mb-0 md:mr-2 w-full md:w-1/3" placeholder="Exercise Name">
-      <select bind:value="{formValues.muscleGroup}" class="shadow-sm p-2 rounded-lg border border-teal-600 mb-2 md:mb-0 md:mr-2 w-full md:w-1/3">
-        <option value="">All Muscle Groups</option>
-        {#each $muscleGroups as muscleGroup, index}
-          <option value={muscleGroup.id}>{muscleGroup.name}</option>
-        {/each}
-      </select>
-      <input bind:value="{formValues.videoUrl}" type="text" class="shadow-sm p-2 rounded-lg border border-teal-600 mb-2 md:mb-0 md:mr-2 w-full md:w-1/3" placeholder="Video URL">
-      <button class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
-        submit
-      </button>
+    <form class="flex flex-col md:flex-row gap-2" on:submit|preventDefault={saveExercise}>
+      <Input bind:value={formValues.name} type="text" id="exercise_name" placeholder="Exercise Name" required />
+      <Select items={$muscleGroups} bind:value="{formValues.muscleGroup}" required />
+      <Input bind:value={formValues.videoUrl} type="text" id="video_url" placeholder="Video URL" />
+      <Button gradient color="tealToLime" type="submit">submit</Button>
     </form>
     <table class="mt-6 w-full">
       <thead>
@@ -85,7 +78,7 @@
             {#each $exercises.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()) as exercise, index}
               <tr>
                 <td class="p-2 border border-teal-600">{exercise.name}</td>
-                <td class="p-2 border border-teal-600">{$muscleGroups.find(group => group.id === exercise.muscleGroup).name}</td>
+                <td class="p-2 border border-teal-600">{$muscleGroups.find(group => group.value === exercise.muscleGroup).name}</td>
                 <td class="p-2 border border-teal-600">{#if 'videoUrl' in exercise} <a on:click|preventDefault={showVideo} title="{exercise.name}" href="{exercise.videoUrl}" target="_blank" rel="noreferrer">{exercise.videoUrl}</a> {/if}</td>
               </tr>
             {/each}
