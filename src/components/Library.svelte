@@ -70,10 +70,10 @@
       <Input bind:value={formValues.name} type="text" id="exercise_name" placeholder="Exercise Name" required />
       <Select items={$muscleGroups} bind:value="{formValues.muscleGroup}" required />
       <Input bind:value={formValues.videoUrl} type="text" id="video_url" placeholder="Video URL" />
-      <Button gradient color="tealToLime" type="submit">submit</Button>
+      <Button gradient color="tealToLime" type="submit">add</Button>
     </form>
 
-    <TableSearch placeholder="Search by exercise name" hoverable={true} bind:inputValue={searchTerm}>
+    <TableSearch  placeholder="Search by exercise name" hoverable={true} bind:inputValue={searchTerm}>
       <TableHead>
         <TableHeadCell>Exercise Name</TableHeadCell>
         <TableHeadCell>Target Muscle Group</TableHeadCell>
