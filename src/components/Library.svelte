@@ -1,17 +1,23 @@
 <script>
-  import { Modal, Input, Select, Button } from 'flowbite-svelte'
   import Utils from '../lib/utils.js';
+  import { Modal, Input, Select, Button } from 'flowbite-svelte'
+  import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, TableSearch } from 'flowbite-svelte';
   import { muscleGroups, exercises } from '../store/stores.js';
 
   let defaultModal = false;
   let modalTitle = 'Video';
   let modalContent = '';
+  let searchTerm = '';
 
   const formValues = {
     name: '',
     muscleGroup: '',
     videoUrl: ''
   };
+
+  $: filteredExercises = $exercises.filter(
+    (exercise) => exercise.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+  );
 
   function saveExercise() {
 
@@ -66,24 +72,23 @@
       <Input bind:value={formValues.videoUrl} type="text" id="video_url" placeholder="Video URL" />
       <Button gradient color="tealToLime" type="submit">submit</Button>
     </form>
-    <table class="mt-6 w-full">
-      <thead>
-        <tr>
-            <th class="p-2 border border-teal-600 bg-orange-100 text-left text-teal-600">Exercise Name</th>
-            <th class="p-2 border border-teal-600 bg-orange-100 text-left text-teal-600">Target Muscle Group</th>  
-            <th class="p-2 border border-teal-600 bg-orange-100 text-left text-teal-600">Video URL</th>
-        </tr>
-      </thead>
-        <tbody>
-            {#each $exercises.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()) as exercise, index}
-              <tr>
-                <td class="p-2 border border-teal-600">{exercise.name}</td>
-                <td class="p-2 border border-teal-600">{$muscleGroups.find(group => group.value === exercise.muscleGroup).name}</td>
-                <td class="p-2 border border-teal-600">{#if 'videoUrl' in exercise} <a on:click|preventDefault={showVideo} title="{exercise.name}" href="{exercise.videoUrl}" target="_blank" rel="noreferrer">{exercise.videoUrl}</a> {/if}</td>
-              </tr>
-            {/each}
-        </tbody>
-    </table>
+
+    <TableSearch placeholder="Search by exercise name" hoverable={true} bind:inputValue={searchTerm}>
+      <TableHead>
+        <TableHeadCell>Exercise Name</TableHeadCell>
+        <TableHeadCell>Target Muscle Group</TableHeadCell>
+        <TableHeadCell>Video URL</TableHeadCell>
+      </TableHead>
+      <TableBody class="divide-y">
+        {#each filteredExercises as exercise}
+          <TableBodyRow>
+            <TableBodyCell>{exercise.name}</TableBodyCell>
+            <TableBodyCell>{$muscleGroups.find(group => group.value === exercise.muscleGroup).name}</TableBodyCell>
+            <TableBodyCell>{#if 'videoUrl' in exercise} <a on:click|preventDefault={showVideo} title="{exercise.name}" href="{exercise.videoUrl}" target="_blank" rel="noreferrer">{exercise.videoUrl}</a> {/if}</TableBodyCell>
+          </TableBodyRow>
+        {/each}
+      </TableBody>
+    </TableSearch>
 </div>
 
 <Modal title="{modalTitle}" bind:open={defaultModal} autoclose>
