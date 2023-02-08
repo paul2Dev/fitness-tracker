@@ -113,10 +113,50 @@ const workouts = writable([
     {
         id: crypto.randomUUID(),
         name: "Chest Day",
-        created_at: new Date().toISOString(),
+        description: "Chest Day with some extra stuff",
+        created_at: new Date(),
         exercises: [
             {
                 exerciseID: get(exercises).find((exercise) => exercise.name === "Bench Press").id,
+                sets: 3,
+                reps: 10,
+                startWeight: 50,
+                endWeight: 100,
+                incrementBy: 10,
+                notes: "I felt really good today",
+                restTime: 2,
+            },
+            {
+                exerciseID: get(exercises).find((exercise) => exercise.name === "Incline Bench Press").id,
+                sets: 3,
+                reps: 10,
+                startWeight: 50,
+                endWeight: 100,
+                incrementBy: 10,
+                notes: "I felt really good today",
+                restTime: 2,
+            },
+        ],
+    },
+
+    {
+        id: crypto.randomUUID(),
+        name: "Chest Day 2",
+        description: "Chest Day with some extra stuff on day 2",
+        created_at: new Date(),
+        exercises: [
+            {
+                exerciseID: get(exercises).find((exercise) => exercise.name === "Bench Press").id,
+                sets: 3,
+                reps: 10,
+                startWeight: 50,
+                endWeight: 100,
+                incrementBy: 10,
+                notes: "I felt really good today",
+                restTime: 2,
+            },
+            {
+                exerciseID: get(exercises).find((exercise) => exercise.name === "Incline Bench Press").id,
                 sets: 3,
                 reps: 10,
                 startWeight: 50,
