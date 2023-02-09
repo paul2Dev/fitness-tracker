@@ -1,5 +1,4 @@
 <script>
-    import Utils from '../lib/utils.js';
     import { workouts } from '../store/stores.js';
     import { Timeline, TimelineItem, Button } from 'flowbite-svelte';
 </script>

@@ -1,13 +1,14 @@
 <script>
   import Utils from '../lib/utils.js';
-  import { Modal, Input, Select, Button } from 'flowbite-svelte'
-  import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, TableSearch } from 'flowbite-svelte';
+  import { Modal, FloatingLabelInput, Select, Button, Helper } from 'flowbite-svelte'
+  import { TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, TableSearch } from 'flowbite-svelte';
   import { muscleGroups, exercises } from '../store/stores.js';
 
   let defaultModal = false;
   let modalTitle = 'Video';
   let modalContent = '';
   let searchTerm = '';
+  let errors = {};
 
   const formValues = {
     name: '',
@@ -21,15 +22,30 @@
 
   function saveExercise() {
 
+    errors = {
+      name: '',
+      videoUrl: ''
+    };
+
+    const exerciceExists = $exercises.find(exercise => exercise.name === formValues.name);
+
+    if(exerciceExists && exerciceExists.muscleGroup === formValues.muscleGroup) {
+      errors.name = 'Exercise already exists';
+    }
+
     if(!formValues.name || !formValues.muscleGroup) {
-      alert('Please fill out all fields');
-      return;
+      errors.name = 'Please fill out all fields';
     }
 
     if(formValues.videoUrl && !Utils.getYoutubeVideoId(formValues.videoUrl)) {
-      alert('Please enter a valid YouTube URL');
+      errors.videoUrl = 'Please enter a valid YouTube URL';
+    }
+
+    if(errors.name || errors.videoUrl) {
       return;
     }
+
+    
 
     exercises.update(exercises => {
       exercises.push({
@@ -66,10 +82,25 @@
 </script>
 
 <div class="bg-white p-6 rounded-lg shadow-md">
-    <form class="flex flex-col md:flex-row gap-2" on:submit|preventDefault={saveExercise}>
-      <Input bind:value={formValues.name} type="text" id="exercise_name" placeholder="Exercise Name" required />
-      <Select items={$muscleGroups} bind:value="{formValues.muscleGroup}" required />
-      <Input bind:value={formValues.videoUrl} type="text" id="video_url" placeholder="Video URL" />
+    <form class="grid gap-2 items-end w-full md:grid-cols-7" on:submit|preventDefault={saveExercise}>
+      <div class="col-span-2">
+        {#if errors.name}
+          <Helper color="red" class="mb-2"><span class="font-medium">Oh, snapp!</span> {errors.name}</Helper>
+        {/if}
+        <FloatingLabelInput  size="small" bind:value={formValues.name} style="outlined" type="text" id="exercise_name" label="Exercise Name" required />
+      </div>
+
+      <div class="col-span-2">
+        {#if errors.videoUrl}
+          <Helper color="red" class="mb-2"><span class="font-medium">Oh, snapp!</span> {errors.videoUrl}</Helper>
+        {/if}
+        <FloatingLabelInput size="small" bind:value={formValues.videoUrl} style="outlined"type="text" id="video_url" label="Video URL" />
+      </div>
+
+      <div class="col-span-2">
+        <Select size="md" items={$muscleGroups} bind:value="{formValues.muscleGroup}" required />
+      </div>
+
       <Button gradient color="tealToLime" type="submit">add</Button>
     </form>
 
