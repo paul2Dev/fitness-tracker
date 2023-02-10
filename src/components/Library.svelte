@@ -45,8 +45,6 @@
       return;
     }
 
-    
-
     exercises.update(exercises => {
       exercises.push({
         id: crypto.randomUUID(),
