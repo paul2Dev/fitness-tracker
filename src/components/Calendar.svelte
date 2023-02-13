@@ -17,7 +17,8 @@
     }
 </script>
 
-<Timeline>
+<div class="bg-white p-6 rounded-lg shadow-md">
+  <Timeline>
     {#each $workouts as workout}
     <TimelineItem title="{workout.name}" date="{workout.created_at.toLocaleString('en-us',{month:'short', year:'numeric', day:'numeric'})}">
       <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -61,3 +62,4 @@
     </Table>
     {/if}
   </Modal>
+</div>
