@@ -98,8 +98,9 @@
       <div class="col-span-2">
         <Select size="md" items={$muscleGroups} bind:value="{formValues.muscleGroup}" required />
       </div>
-
-      <Button gradient color="tealToLime" type="submit">add</Button>
+      <div class="col-span-1">
+        <Button size="md" color="dark" type="submit">add</Button>
+      </div>
     </form>
 
     <TableSearch  placeholder="Search by exercise name" hoverable={true} bind:inputValue={searchTerm}>

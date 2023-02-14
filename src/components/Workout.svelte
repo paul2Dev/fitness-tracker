@@ -49,9 +49,7 @@
         formValues.exercises = [...formValues.exercises.slice(0, index), ...formValues.exercises.slice(index + 1)];
     }
 
-
     function saveWorkout() {
-
         if (confirm("Finished workout?") == true) {
             workouts.update(workouts => {
                 workouts.push(formValues);
@@ -60,8 +58,6 @@
 
             formValues = initFormValues();
         } 
-
-        
     }
 
 </script>
@@ -91,15 +87,15 @@
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.endWeight} style="outlined" type="text" label="End Weight" required /></TableBodyCell>
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.incrementBy} style="outlined" type="text" label="Increment By" required /></TableBodyCell>
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.restTime} style="outlined" type="text" label="Rest Time" required /></TableBodyCell>
-                <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.notes} style="outlined" type="text" label="Notes" required /></TableBodyCell>
+                <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.notes} style="outlined" type="text" label="Notes" /></TableBodyCell>
                 <TableBodyCell><Button color="red" size="xs" on:click={() => removeLine(i)}>delete</Button></TableBodyCell>
               </TableBodyRow>
             {/each}
             </TableBody>
         </Table>
 
-        <Button on:click={addLine}>add exercise</Button>
-        <Button type="submit">Submit</Button>
+        <Button on:click={addLine} size="xs" color="dark">add exercise</Button>
+        <Button type="submit" size="xs" color="dark">save workout</Button>
     </form>
 
     
