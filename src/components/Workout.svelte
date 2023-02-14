@@ -1,27 +1,32 @@
 <script>
-    import { exercises } from '../store/stores.js';
+    import { exercises, workouts } from '../store/stores.js';
     import { DateInput } from 'date-picker-svelte'
     import { FloatingLabelInput, Button, Select } from 'flowbite-svelte';
     import { Table, TableBody, TableBodyCell, TableBodyRow } from 'flowbite-svelte';
 
-    let formValues = {
-        name: '',
-        description: '',
-        created_at: new Date(),
-        exercises: [
-        {
-            id: 0,
-            exerciseID: '',
-            sets: '',
-            reps: '',
-            startWeight: '',
-            endWeight: '',
-            incrementBy: '',
-            restTime: '',
-            notes: ''
-        }
-        ]
-    };
+    function initFormValues() {
+        return {
+            id: crypto.randomUUID(),
+            name: '',
+            description: '',
+            created_at: new Date(),
+            exercises: [
+                {
+                    id: 0,
+                    exerciseID: '',
+                    sets: '',
+                    reps: '',
+                    startWeight: '',
+                    endWeight: '',
+                    incrementBy: '',
+                    restTime: '',
+                    notes: ''
+                }
+            ]
+        };
+    }
+    
+    let formValues = initFormValues();
     let nextId = 1;
 
     $: selectExercises = $exercises.filter((exercise) => exercise.value = exercise.id);
@@ -46,7 +51,17 @@
 
 
     function saveWorkout() {
-        console.log(formValues);
+
+        if (confirm("Finished workout?") == true) {
+            workouts.update(workouts => {
+                workouts.push(formValues);
+                return workouts;
+            });
+
+            formValues = initFormValues();
+        } 
+
+        
     }
 
 </script>
@@ -61,7 +76,7 @@
                 <FloatingLabelInput  size="small" bind:value={formValues.description} style="outlined" type="text" id="workout_description" label="Workout Description" required />
             </div>
             <div>
-                <DateInput bind:value={formValues.created_at} format="dd/mm/yyyy" />
+                <DateInput bind:value={formValues.created_at} format="dd/MM/yyyy" />
             </div>
         </div>
 

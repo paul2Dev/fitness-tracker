@@ -51,7 +51,7 @@
         name: formValues.name,
         muscleGroup: formValues.muscleGroup,
         videoUrl: formValues.videoUrl,
-        created_at: new Date().toISOString()
+        created_at: new Date()
       });
       return exercises;
     });
@@ -109,7 +109,7 @@
         <TableHeadCell>Video URL</TableHeadCell>
       </TableHead>
       <TableBody class="divide-y">
-        {#each filteredExercises as exercise}
+        {#each filteredExercises.sort((a, b) => b.created_at - a.created_at) as exercise}
           <TableBodyRow>
             <TableBodyCell>{exercise.name}</TableBodyCell>
             <TableBodyCell>{$muscleGroups.find(group => group.value === exercise.muscleGroup).name}</TableBodyCell>

@@ -19,7 +19,7 @@
 
 <div class="bg-white p-6 rounded-lg shadow-md">
   <Timeline>
-    {#each $workouts as workout}
+    {#each $workouts.sort((a, b) => b.created_at - a.created_at) as workout}
     <TimelineItem title="{workout.name}" date="{workout.created_at.toLocaleString('en-us',{month:'short', year:'numeric', day:'numeric'})}">
       <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400">
         {workout.description}
