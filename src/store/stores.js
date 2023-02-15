@@ -113,8 +113,6 @@ const workouts = writable([
     {
         id: crypto.randomUUID(),
         name: "Chest Day",
-        description: "Chest Day with some extra stuff",
-        created_at: new Date(),
         exercises: [
             {
                 exerciseID: get(exercises).find((exercise) => exercise.name === "Bench Press").id,
@@ -142,8 +140,6 @@ const workouts = writable([
     {
         id: crypto.randomUUID(),
         name: "Chest Day 2",
-        description: "Chest Day with some extra stuff on day 2",
-        created_at: new Date(),
         exercises: [
             {
                 exerciseID: get(exercises).find((exercise) => exercise.name === "Bench Press").id,
@@ -169,5 +165,20 @@ const workouts = writable([
     },
 ]);
 
+const workoutsLog = writable([
+    {
+        id: crypto.randomUUID(),
+        description: "Chest Day with some extra stuff",
+        created_at: new Date(),
+        workoutId: get(workouts).find((workout) => workout.name === "Chest Day").id,
+    },
+    {
+        id: crypto.randomUUID(),
+        description: "Chest Day with some extra stuff on day 2",
+        created_at: new Date(),
+        workoutId: get(workouts).find((workout) => workout.name === "Chest Day 2").id,
+    },
+]);
 
-export { muscleGroups, exercises, workouts};
+
+export { muscleGroups, exercises, workouts, workoutsLog};

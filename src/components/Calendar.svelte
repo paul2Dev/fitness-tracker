@@ -1,5 +1,5 @@
 <script>
-    import { workouts, exercises, muscleGroups } from '../store/stores.js';
+    import { workouts, exercises, muscleGroups, workoutsLog } from '../store/stores.js';
     import { Timeline, TimelineItem, Button, Modal } from 'flowbite-svelte';
     import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
     import { get } from "svelte/store";
@@ -12,15 +12,15 @@
     function showWorkoutDetails(event) {
       defaultModal = true;
       currentWorkout = $workouts.find(workout => workout.id === event.target.dataset.workout);
-      modalTitle = currentWorkout.created_at.toLocaleString('en-us',{month:'short', year:'numeric', day:'numeric'}) + ' - ' + currentWorkout.name;
-      modalContent = currentWorkout.description;
+      modalTitle = currentWorkout.name
+      modalContent = event.target.dataset.workoutDescription;
     }
 </script>
 filter from date to date
 <div class="bg-white p-6 rounded-lg shadow-md">
   <Timeline order="horizontal">
-    {#each $workouts.sort((a, b) => b.created_at - a.created_at) as workout}
-    <TimelineItem title="{workout.name}" date="{workout.created_at.toLocaleString('en-us',{month:'short', year:'numeric', day:'numeric'})}">
+    {#each $workoutsLog.sort((a, b) => b.created_at - a.created_at) as workoutLog}
+    <TimelineItem title="{$workouts.find(workout => workout.id === workoutLog.workoutId).name}" date="{workoutLog.created_at.toLocaleString('en-us',{month:'short', year:'numeric', day:'numeric'})}">
       <svelte:fragment slot="icon">
           <div class="flex items-center">
             <div class="flex z-10 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
@@ -30,9 +30,9 @@ filter from date to date
         </div>
       </svelte:fragment>
       <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400">
-        {workout.description}
+        {workoutLog.description}
       </p>
-      <Button on:click={showWorkoutDetails} data-workout="{workout.id}" size="xs" color="dark">workout details</Button>
+      <Button on:click={showWorkoutDetails} data-workout="{workoutLog.workoutId}" data-workout-description="{workoutLog.description}" size="xs" color="dark">workout details</Button>
     </TimelineItem>
     {/each}
   </Timeline>
