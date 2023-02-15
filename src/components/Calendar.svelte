@@ -16,7 +16,7 @@
       modalContent = currentWorkout.description;
     }
 </script>
-
+filter from date to date
 <div class="bg-white p-6 rounded-lg shadow-md">
   <Timeline order="horizontal">
     {#each $workouts.sort((a, b) => b.created_at - a.created_at) as workout}

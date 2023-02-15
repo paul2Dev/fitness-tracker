@@ -61,7 +61,6 @@
     }
 
 </script>
-
 <div class="bg-white p-6 rounded-lg shadow-md">
     <form on:submit|preventDefault={saveWorkout}>
         <div class="grid gap-6 mb-6 md:grid-cols-3">
