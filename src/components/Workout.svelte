@@ -1,7 +1,7 @@
 <script>
     import { exercises, workouts } from '../store/stores.js';
     import { DateInput } from 'date-picker-svelte'
-    import { FloatingLabelInput, Button, Select } from 'flowbite-svelte';
+    import { FloatingLabelInput, Button, Select, Label } from 'flowbite-svelte';
     import { Table, TableBody, TableBodyCell, TableBodyRow } from 'flowbite-svelte';
 
     function initFormValues() {
@@ -29,6 +29,7 @@
     let formValues = initFormValues();
     let nextId = 1;
 
+    $: selectWorkouts = $workouts.filter((workout) => workout.value = workout.id);
     $: selectExercises = $exercises.filter((exercise) => exercise.value = exercise.id);
 
     function addLine() {
@@ -65,16 +66,22 @@
     <form on:submit|preventDefault={saveWorkout}>
         <div class="grid gap-6 mb-6 md:grid-cols-3">
             <div>
-                <FloatingLabelInput  size="small" bind:value={formValues.name} style="outlined" type="text" id="workout_name" label="Workout Name" required />
+                
+                <Label>Select an workout
+                    <Select size="md" items={selectWorkouts} bind:value="{formValues.id}" required />
+                </Label>
             </div>
             <div>
-                <FloatingLabelInput  size="small" bind:value={formValues.description} style="outlined" type="text" id="workout_description" label="Workout Description" required />
+                <FloatingLabelInput  size="small" bind:value={formValues.description} style="outlined" type="text" id="workout_description" label="Description" required />
             </div>
             <div>
                 <DateInput bind:value={formValues.created_at} format="dd/MM/yyyy" />
             </div>
         </div>
 
+        <div>
+            <FloatingLabelInput  size="small" bind:value={formValues.name} style="outlined" type="text" id="workout_name" label="Workout Name" required />
+        </div>
         <Table>
             <TableBody>
             {#each formValues.exercises as exercise, i}

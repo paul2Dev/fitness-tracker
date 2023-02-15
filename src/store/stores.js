@@ -178,6 +178,35 @@ const workoutsLog = writable([
         created_at: new Date(),
         workoutId: get(workouts).find((workout) => workout.name === "Chest Day 2").id,
     },
+    {
+        id: crypto.randomUUID(),
+        description: "Chest Day with some extra stuff on day 3",
+        created_at: new Date(),
+        workoutId: '',
+        name: "Chest Day 3",
+        exercises: [
+            {
+                exerciseID: get(exercises).find((exercise) => exercise.name === "Bench Press").id,
+                sets: 5,
+                reps: 15,
+                startWeight: 50,
+                endWeight: 100,
+                incrementBy: 10,
+                notes: "I felt really good on day 3",
+                restTime: 2,
+            },
+            {
+                exerciseID: get(exercises).find((exercise) => exercise.name === "Incline Bench Press").id,
+                sets: 6,
+                reps: 12,
+                startWeight: 50,
+                endWeight: 100,
+                incrementBy: 10,
+                notes: "I felt really good on day 3",
+                restTime: 2,
+            },
+        ],
+    },
 ]);
 
 
