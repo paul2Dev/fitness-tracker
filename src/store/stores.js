@@ -1,6 +1,6 @@
 import { writable, get } from "svelte/store";
 
-const muscleGroups = writable([
+let defaultMuscleGroup =  [
     {
         value: 1,
         name: "Chest",
@@ -33,9 +33,13 @@ const muscleGroups = writable([
         value: 8,
         name: "Calves",
     },
-]);
+];
 
-const exercises = writable([
+defaultMuscleGroup = JSON.parse(localStorage.getItem("muscleGroups")) || defaultMuscleGroup;
+
+const muscleGroups = writable(defaultMuscleGroup);
+
+let defaultExercises = [
     {
         id: crypto.randomUUID(),
         name: "Bench Press",
@@ -107,9 +111,13 @@ const exercises = writable([
         videoUrl: 'https://www.youtube.com/watch?v=Iwe6AmxVf7o',
         created_at: new Date()
     },
-]);
+];
 
-const workouts = writable([
+defaultExercises = JSON.parse(localStorage.getItem("exercises")) || defaultExercises;
+
+const exercises = writable(defaultExercises);
+
+let defaultWorkouts = [
     {
         id: crypto.randomUUID(),
         name: "Chest Day",
@@ -163,9 +171,13 @@ const workouts = writable([
             },
         ],
     },
-]);
+];
 
-const workoutsLog = writable([
+defaultWorkouts = JSON.parse(localStorage.getItem("workouts")) || defaultWorkouts;
+
+const workouts = writable(defaultWorkouts);
+
+let defaultWorkoutsLog = [
     {
         id: crypto.randomUUID(),
         description: "Chest Day with some extra stuff",
@@ -207,7 +219,10 @@ const workoutsLog = writable([
             },
         ],
     },
-]);
+];
 
+defaultWorkoutsLog = JSON.parse(localStorage.getItem("workoutsLog")) || defaultWorkoutsLog;
+
+const workoutsLog = writable(defaultWorkoutsLog);
 
 export { muscleGroups, exercises, workouts, workoutsLog};
