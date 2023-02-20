@@ -26,7 +26,7 @@ filter from date to date
 <div class="bg-white p-6 rounded-lg shadow-md">
   <Timeline order="horizontal">
     {#each $workoutsLog.sort((a, b) => b.created_at - a.created_at) as workoutLog}
-    <TimelineItem title="{(workoutLog.workoutId === '') ? workoutLog.name : $workouts.find(workout => workout.id === workoutLog.workoutId).name}" date="{workoutLog.created_at.toLocaleString('en-us',{month:'short', year:'numeric', day:'numeric'})}">
+    <TimelineItem title="{(workoutLog.workoutId === '') ? workoutLog.name : $workouts.find(workout => workout.id === workoutLog.workoutId).name}" date="{new Date(workoutLog.created_at).toLocaleString('en-us',{month:'short', year:'numeric', day:'numeric'})}">
       <svelte:fragment slot="icon">
           <div class="flex items-center">
             <div class="flex z-10 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
