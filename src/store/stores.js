@@ -117,6 +117,10 @@ defaultExercises = JSON.parse(localStorage.getItem("exercises")) || defaultExerc
 
 const exercises = writable(defaultExercises);
 
+exercises.subscribe((value) =>
+    localStorage.setItem('exercises', JSON.stringify(value))
+);
+
 let defaultWorkouts = [
     {
         id: crypto.randomUUID(),
@@ -177,6 +181,10 @@ defaultWorkouts = JSON.parse(localStorage.getItem("workouts")) || defaultWorkout
 
 const workouts = writable(defaultWorkouts);
 
+workouts.subscribe((value) =>
+    localStorage.setItem('workouts', JSON.stringify(value))
+);
+
 let defaultWorkoutsLog = [
     {
         id: crypto.randomUUID(),
@@ -224,5 +232,9 @@ let defaultWorkoutsLog = [
 defaultWorkoutsLog = JSON.parse(localStorage.getItem("workoutsLog")) || defaultWorkoutsLog;
 
 const workoutsLog = writable(defaultWorkoutsLog);
+
+workoutsLog.subscribe((value) =>
+    localStorage.setItem('workoutsLog', JSON.stringify(value))
+);
 
 export { muscleGroups, exercises, workouts, workoutsLog};
