@@ -28,9 +28,8 @@
       }
     }
 </script>
-filter from date to date
 <div class="bg-white p-6 rounded-lg shadow-md">
-  <Timeline order="horizontal">
+  <Timeline>
     {#each $workoutsLog.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) as workoutLog}
     <TimelineItem title="{(workoutLog.workoutId === '') ? workoutLog.name : $workouts.find(workout => workout.id === workoutLog.workoutId).name}" date="{new Date(workoutLog.created_at).toLocaleString('en-us',{month:'short', year:'numeric', day:'numeric'})}">
       <svelte:fragment slot="icon">
@@ -42,10 +41,20 @@ filter from date to date
         </div>
       </svelte:fragment>
       <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400">
-        {workoutLog.description}
+        {workoutLog.description} - 
+        <a href="#" on:click|preventDefault={showWorkoutDetails} 
+            data-workout-log-id="{workoutLog.id}" 
+            data-workout-id="{workoutLog.workoutId}"
+            data-workout-description="{workoutLog.description}" 
+            class="text-teal-600 hover:text-teal-800">details</a> -
+
+          <a href="#" on:click|preventDefault={removeWorkoutLog} 
+            data-workout-log-id="{workoutLog.id}" 
+            data-workout-name="{(workoutLog.workoutId === '') ? workoutLog.name : $workouts.find(workout => workout.id === workoutLog.workoutId).name}" 
+            class="text-red-400 hover:text-red-600">delete</a>
       </p>
-      <Button on:click={showWorkoutDetails} data-workout-log-id="{workoutLog.id}" data-workout-id="{workoutLog.workoutId}" data-workout-description="{workoutLog.description}" outline size="xs" color="dark">details</Button>
-      <Button on:click={removeWorkoutLog} data-workout-log-id="{workoutLog.id}" data-workout-name="{workoutLog.name}" size="xs" outline color="red">x</Button>
+      
+      
     </TimelineItem>
     {/each}
   </Timeline>
