@@ -21,11 +21,17 @@
       modalTitle = currentWorkout.name;
       modalContent = event.target.dataset.workoutDescription;
     }
+
+    function removeWorkoutLog(event) {
+      if (confirm("are you sure you want to delete " + event.target.dataset.workoutName + " ?") == true) {
+        workoutsLog.update(workoutsLog => workoutsLog.filter(workoutLog => workoutLog.id !== event.target.dataset.workoutLogId));
+      }
+    }
 </script>
 filter from date to date
 <div class="bg-white p-6 rounded-lg shadow-md">
   <Timeline order="horizontal">
-    {#each $workoutsLog.sort((a, b) => b.created_at - a.created_at) as workoutLog}
+    {#each $workoutsLog.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) as workoutLog}
     <TimelineItem title="{(workoutLog.workoutId === '') ? workoutLog.name : $workouts.find(workout => workout.id === workoutLog.workoutId).name}" date="{new Date(workoutLog.created_at).toLocaleString('en-us',{month:'short', year:'numeric', day:'numeric'})}">
       <svelte:fragment slot="icon">
           <div class="flex items-center">
@@ -38,7 +44,8 @@ filter from date to date
       <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400">
         {workoutLog.description}
       </p>
-      <Button on:click={showWorkoutDetails} data-workout-log-id="{workoutLog.id}" data-workout-id="{workoutLog.workoutId}" data-workout-description="{workoutLog.description}" size="xs" color="dark">workout details</Button>
+      <Button on:click={showWorkoutDetails} data-workout-log-id="{workoutLog.id}" data-workout-id="{workoutLog.workoutId}" data-workout-description="{workoutLog.description}" outline size="xs" color="dark">details</Button>
+      <Button on:click={removeWorkoutLog} data-workout-log-id="{workoutLog.id}" data-workout-name="{workoutLog.name}" size="xs" outline color="red">x</Button>
     </TimelineItem>
     {/each}
   </Timeline>
