@@ -133,6 +133,8 @@
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.sets} style="outlined" type="text" label="Sets" required /></TableBodyCell>
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.reps} style="outlined" type="text" label="Reps" required /></TableBodyCell>
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.startWeight} style="outlined" type="text" label="Start Weight" required /></TableBodyCell>
+              </TableBodyRow>
+              <TableBodyRow>
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.endWeight} style="outlined" type="text" label="End Weight" required /></TableBodyCell>
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.incrementBy} style="outlined" type="text" label="Increment By" required /></TableBodyCell>
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.restTime} style="outlined" type="text" label="Rest Time" required /></TableBodyCell>

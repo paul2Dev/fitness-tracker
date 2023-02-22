@@ -59,7 +59,7 @@
     {/each}
   </Timeline>
 
-  <Modal title="{modalTitle}" bind:open={defaultModal} autoclose>
+  <Modal title="{modalTitle}" bind:open={defaultModal} placement="top-center" autoclose>
     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
       {@html modalContent}
     </p>

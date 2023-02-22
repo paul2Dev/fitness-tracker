@@ -16,7 +16,6 @@
   <div class="container mx-auto flex justify-center py-10 bg-orange-100">
     <div class="w-full p-6"><svelte:component this={activeTab} /></div>
   </div>
-  
 </main>
 
 
