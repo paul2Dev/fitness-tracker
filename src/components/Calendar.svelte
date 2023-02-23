@@ -1,6 +1,6 @@
 <script>
-    import { workouts, exercises, muscleGroups, workoutsLog } from '../store/stores.js';
-    import { Timeline, TimelineItem, Button, Modal } from 'flowbite-svelte';
+    import { workouts, exercises, workoutsLog } from '../store/stores.js';
+    import { Timeline, TimelineItem, Modal } from 'flowbite-svelte';
     import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
     import { get } from "svelte/store";
 
