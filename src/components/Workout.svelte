@@ -108,7 +108,7 @@
 
 </script>
 <div class="bg-white p-6 rounded-lg shadow-md">
-    <Heading tag="h4" class="mb-4">{headingText}</Heading>
+    <Heading tag="h4" class="mb-4" color="text-gray-700">{headingText}</Heading>
     <form on:submit|preventDefault={saveWorkout}>
         {#if logWorkout === true}  
         <div class="grid gap-6 mb-6 md:grid-cols-3">

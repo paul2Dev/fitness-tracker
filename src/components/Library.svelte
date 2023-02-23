@@ -80,7 +80,7 @@
 </script>
 
 <div class="bg-white p-6 rounded-lg shadow-md">
-    <Heading tag="h4" class="mb-4">Exercises library</Heading>
+    <Heading tag="h4" class="mb-4" color="text-gray-700">Exercises library</Heading>
     <form class="grid gap-2 items-end w-full md:grid-cols-7" on:submit|preventDefault={saveExercise}>
       <div class="col-span-2">
         {#if errors.name}
