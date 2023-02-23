@@ -1,11 +1,13 @@
 <script>
     import { exercises, workouts, workoutsLog } from '../store/stores.js';
     import { DateInput } from 'date-picker-svelte'
-    import { FloatingLabelInput, Button, Select, Label } from 'flowbite-svelte';
+    import { FloatingLabelInput, Button, Select, Heading } from 'flowbite-svelte';
     import { Table, TableBody, TableBodyCell, TableBodyRow } from 'flowbite-svelte';
 
     export let logWorkout;
     let newWorkout = true;
+
+    export let headingText = 'Create workout';
 
     function removeNewWorkout() {
         newWorkout = (formValues.workoutId !== '') ? false : true;
@@ -106,6 +108,7 @@
 
 </script>
 <div class="bg-white p-6 rounded-lg shadow-md">
+    <Heading tag="h4" class="mb-4">{headingText}</Heading>
     <form on:submit|preventDefault={saveWorkout}>
         {#if logWorkout === true}  
         <div class="grid gap-6 mb-6 md:grid-cols-3">

@@ -5,7 +5,7 @@
 
 <div class="grid grid-cols-3 gap-2">
     <div class="col-span-2">
-        <Workout logWorkout={true} />
+        <Workout logWorkout={true} headingText="Log workout" />
     </div>
     <div>
         <Calendar/>

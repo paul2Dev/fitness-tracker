@@ -6,7 +6,6 @@
 
     let defaultModal = false;
     let modalTitle = '';
-    let modalContent = '';
     let currentWorkout = null;
 
     function showWorkoutDetails(event) {
@@ -49,8 +48,6 @@
                 data-workout-name="{workout.name}" 
                 class="text-red-400 hover:text-red-600">delete</a>
         </p>
-        
-        
       </TimelineItem>
       {/each}
     </Timeline>
