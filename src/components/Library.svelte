@@ -62,6 +62,7 @@
   };
 
   function showVideo(event) {
+    event.preventDefault();
     defaultModal = true;
     const videoId = Utils.getYoutubeVideoId(event.target.href);
     modalTitle = event.target.title;
@@ -76,6 +77,15 @@
                       picture-in-picture" 
                       allowfullscreen>
                     </iframe>`;
+  }
+
+  function deleteExercise(event) {
+    event.preventDefault();
+    if (confirm("are you sure you want to delete " + event.target.dataset.exerciseName+ " exercise ?") == true) {
+      exercises.update(exercises => {
+        return exercises.filter(exercise => exercise.id !== event.target.dataset.id);
+      });
+    }
   }
 </script>
 
@@ -109,13 +119,20 @@
         <TableHeadCell>Exercise Name</TableHeadCell>
         <TableHeadCell>Target Muscle Group</TableHeadCell>
         <TableHeadCell>Video URL</TableHeadCell>
+        <TableHeadCell>Actions</TableHeadCell>
       </TableHead>
       <TableBody class="divide-y">
         {#each filteredExercises.sort((a, b) => b.created_at - a.created_at) as exercise}
           <TableBodyRow>
             <TableBodyCell>{exercise.name}</TableBodyCell>
             <TableBodyCell>{$muscleGroups.find(group => group.value === exercise.muscleGroup).name}</TableBodyCell>
-            <TableBodyCell>{#if 'videoUrl' in exercise} <a on:click|preventDefault={showVideo} title="{exercise.name}" href="{exercise.videoUrl}" target="_blank" rel="noreferrer">{exercise.videoUrl}</a> {/if}</TableBodyCell>
+            <TableBodyCell>{#if 'videoUrl' in exercise} <a on:click={showVideo} title="{exercise.name}" href="{exercise.videoUrl}" target="_blank" rel="noreferrer">{exercise.videoUrl}</a> {/if}</TableBodyCell>
+            <TableBodyCell>
+              {#if 'videoUrl' in exercise}
+                <Button color="dark" size="xs" href="{exercise.videoUrl}" title="{exercise.name}" on:click={showVideo}>view</Button>
+              {/if}
+              <Button color="red" size="xs" on:click={deleteExercise} data-id="{exercise.id}" data-exercise-name={exercise.name}>delete</Button>
+            </TableBodyCell>
           </TableBodyRow>
         {/each}
       </TableBody>
