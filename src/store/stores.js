@@ -237,8 +237,7 @@ workoutsLog.subscribe((value) =>
     localStorage.setItem('workoutsLog', JSON.stringify(value))
 );
 
-let defaultProfile =
-    {
+let defaultProfile = {
         id: crypto.randomUUID(),
         age: 37,
         height: 180,
@@ -247,11 +246,11 @@ let defaultProfile =
         created_at: new Date(),
     };
 
-    defaultProfile = JSON.parse(localStorage.getItem("profile")) || defaultProfile;
+defaultProfile = JSON.parse(localStorage.getItem("profile")) || defaultProfile;
 
 const profile = writable(defaultProfile);
 
-defaultProfile.subscribe((value) =>
+profile.subscribe((value) =>
     localStorage.setItem('profile', JSON.stringify(value))
 );
 
