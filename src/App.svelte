@@ -2,6 +2,7 @@
   import Library from './components/Library.svelte';
   import CreateWorkout from './components/CreateWorkout.svelte';  
   import LogWorkout from './components/LogWorkout.svelte';
+  import MyProfile from './components/MyProfile.svelte';
 
   let activeTab = CreateWorkout;
 </script>
@@ -11,6 +12,7 @@
     <a href="#" on:click={() => (activeTab = CreateWorkout)} class="text-white font-medium hover:text-orange-200 {activeTab === CreateWorkout ? 'text-orange-200' : ''} ">Create Workout</a>
     <a href="#" on:click={() => (activeTab = LogWorkout)} class="ml-6 text-white font-medium hover:text-orange-200 {activeTab === LogWorkout ? 'text-orange-200' : ''} ">Log Workout</a>
     <a href="#" on:click={() => (activeTab = Library)} class="ml-6 text-white font-medium hover:text-orange-200 {activeTab === Library ? 'text-orange-200' : ''}">Library</a>
+    <a href="#" on:click={() => (activeTab = MyProfile)} class="ml-6 text-white font-medium hover:text-orange-200 {activeTab === MyProfile ? 'text-orange-200' : ''}">My Profile</a>
   </nav>
 
   <div class="container mx-auto flex justify-center py-10 bg-orange-100">
