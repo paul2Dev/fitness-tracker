@@ -256,14 +256,16 @@ profile.subscribe((value) =>
     localStorage.setItem('profile', JSON.stringify(value))
 );
 
-let defaultProfileLog = {
-    id: crypto.randomUUID(),
-    age: 37,
-    height: 180,
-    weight: 76,
-    gender: 'male',
-    created_at: new Date(),
-};
+let defaultProfileLog = [
+    {
+        id: crypto.randomUUID(),
+        age: 37,
+        height: 180,
+        weight: 76,
+        gender: 'male',
+        created_at: new Date(),
+    },
+];
 
 defaultProfileLog = JSON.parse(localStorage.getItem("profileLog")) || defaultProfileLog;
 
