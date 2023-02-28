@@ -103,7 +103,7 @@
         {#if errors.videoUrl}
           <Helper color="red" class="mb-2"><span class="font-medium">Oh, snapp!</span> {errors.videoUrl}</Helper>
         {/if}
-        <FloatingLabelInput size="small" bind:value={formValues.videoUrl} style="outlined"type="text" id="video_url" label="Video URL" />
+        <FloatingLabelInput size="small" bind:value={formValues.videoUrl} style="outlined"type="text" id="video_url" label="Youtube video url" />
       </div>
 
       <div class="col-span-2">
@@ -129,9 +129,15 @@
             <TableBodyCell>{#if 'videoUrl' in exercise} <a on:click={showVideo} title="{exercise.name}" href="{exercise.videoUrl}" target="_blank" rel="noreferrer">{exercise.videoUrl}</a> {/if}</TableBodyCell>
             <TableBodyCell>
               {#if 'videoUrl' in exercise}
-                <Button color="dark" size="xs" href="{exercise.videoUrl}" title="{exercise.name}" on:click={showVideo}>view</Button>
+              <a href="{exercise.videoUrl}" on:click={showVideo} 
+              class="text-teal-600 hover:text-teal-800">view</a> -
               {/if}
-              <Button color="red" size="xs" on:click={deleteExercise} data-id="{exercise.id}" data-exercise-name={exercise.name}>delete</Button>
+  
+              <a href="{exercise.videoUrl}" on:click={deleteExercise}
+                data-id="{exercise.id}" 
+                data-exercise-name={exercise.name}
+                class="text-red-400 hover:text-red-600">delete</a>
+
             </TableBodyCell>
           </TableBodyRow>
         {/each}
