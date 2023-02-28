@@ -237,14 +237,16 @@ workoutsLog.subscribe((value) =>
     localStorage.setItem('workoutsLog', JSON.stringify(value))
 );
 
-let defaultProfile = {
+let defaultProfile = [
+    {
         id: crypto.randomUUID(),
         age: 37,
         height: 180,
         weight: 76,
         gender: 'male',
         created_at: new Date(),
-    };
+    }
+];
 
 defaultProfile = JSON.parse(localStorage.getItem("profile")) || defaultProfile;
 
@@ -254,4 +256,21 @@ profile.subscribe((value) =>
     localStorage.setItem('profile', JSON.stringify(value))
 );
 
-export { muscleGroups, exercises, workouts, workoutsLog, profile};
+let defaultProfileLog = {
+    id: crypto.randomUUID(),
+    age: 37,
+    height: 180,
+    weight: 76,
+    gender: 'male',
+    created_at: new Date(),
+};
+
+defaultProfileLog = JSON.parse(localStorage.getItem("profileLog")) || defaultProfileLog;
+
+const profileLog = writable(defaultProfileLog);
+
+profileLog.subscribe((value) =>
+    localStorage.setItem('profileLog', JSON.stringify(value))
+);
+
+export { muscleGroups, exercises, workouts, workoutsLog, profile, profileLog};
