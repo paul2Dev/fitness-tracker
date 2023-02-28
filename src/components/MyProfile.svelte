@@ -12,8 +12,8 @@
 
 </script>
 
-<div class="grid grid-cols-3 gap-2">
-    <div class="col-span-2">
+<div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+    <div class="md:col-span-2">
         <div class="bg-white p-6 rounded-lg shadow-md">
             <Heading tag="h4" class="mb-4" color="text-gray-700">My profile</Heading>
         </div>
