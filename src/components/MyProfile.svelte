@@ -60,7 +60,7 @@
         <div class="bg-white p-6 rounded-lg shadow-md">
             <Heading tag="h4" class="mb-4" color="text-gray-700">Logs</Heading>
             <Timeline>
-                {#each $profileLog as profile}
+                {#each $profileLog.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) as profile}
                 <TimelineItem title="" date="Updated profile on {new Date(profile.created_at).toLocaleString('en-us',{month:'short', year:'numeric', day:'numeric'})}">
                   <svelte:fragment slot="icon">
                       <div class="flex items-center">
