@@ -1,8 +1,22 @@
 <script>
     import { profile, profileLog } from "../store/stores.js";
     import { Timeline, TimelineItem } from "flowbite-svelte";
-    import { Heading } from "flowbite-svelte";
+    import { FloatingLabelInput, Button, Select, Heading } from "flowbite-svelte";
     import { get } from "svelte/store";
+
+    let formValues = {
+        id: crypto.randomUUID(),
+        age: $profile.age,
+        height: $profile.height,
+        weight: $profile.weight,
+        gender: $profile.gender,
+        created_at: new Date()
+    };
+
+    let gender = [
+        {value:"male", name: "Male"},
+        {value:"female", name: "Female"},
+    ];
 
     function removeProfileLog(event) {
       if (confirm("are you sure you want to delete profile log from " + event.target.dataset.profileDate + " ?") == true) {
@@ -10,12 +24,36 @@
       }
     }
 
+    function saveProfile() {
+        if (confirm("Update profile?") == true) { 
+            profile.set(formValues);
+            profileLog.update(profileLog => [...profileLog, formValues]);
+        }
+    }
+
 </script>
 
-<div class="grid grid-cols-1 gap-2 md:grid-cols-3">
-    <div class="md:col-span-2">
+<div class="grid grid-cols-1 gap-2 lg:grid-cols-3">
+    <div class="lg:col-span-2">
         <div class="bg-white p-6 rounded-lg shadow-md">
             <Heading tag="h4" class="mb-4" color="text-gray-700">My profile</Heading>
+            <form on:submit|preventDefault={saveProfile}>
+                <div class="grid md:grid-cols-4 gap-2 mb-4">
+                    <div>
+                        <Select size="md" items={gender} bind:value="{formValues.gender}"  placeholder="Select gender" />
+                    </div>
+                    <div>
+                        <FloatingLabelInput  size="small" bind:value={formValues.age} style="outlined" type="text" id="profile_age" label="age" required />
+                    </div>
+                    <div>
+                        <FloatingLabelInput  size="small" bind:value={formValues.height} style="outlined" type="text" id="profile_height" label="height(cm)" required />
+                    </div>
+                    <div>
+                        <FloatingLabelInput  size="small" bind:value={formValues.weight} style="outlined" type="text" id="profile_weight" label="weight(kg)" required />
+                    </div>
+                </div>
+                <Button type="submit" size="xs" color="dark">save profile</Button>
+            </form>
         </div>
     </div>
     <div>

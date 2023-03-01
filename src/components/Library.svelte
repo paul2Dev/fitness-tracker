@@ -91,27 +91,27 @@
 
 <div class="bg-white p-6 rounded-lg shadow-md">
     <Heading tag="h4" class="mb-4" color="text-gray-700">Exercises library</Heading>
-    <form class="grid gap-2 items-end w-full md:grid-cols-7" on:submit|preventDefault={saveExercise}>
-      <div class="col-span-2">
-        {#if errors.name}
-          <Helper color="red" class="mb-2"><span class="font-medium">Oh, snapp!</span> {errors.name}</Helper>
-        {/if}
-        <FloatingLabelInput  size="small" bind:value={formValues.name} style="outlined" type="text" id="exercise_name" label="Exercise Name" required />
-      </div>
+    <form on:submit|preventDefault={saveExercise}>
+      <div class="grid gap-2 md:grid-cols-3 mb-4">
+        <div>
+          {#if errors.name}
+            <Helper color="red" class="mb-2"><span class="font-medium">Oh, snapp!</span> {errors.name}</Helper>
+          {/if}
+          <FloatingLabelInput  size="small" bind:value={formValues.name} style="outlined" type="text" id="exercise_name" label="Exercise Name" required />
+        </div>
 
-      <div class="col-span-2">
-        {#if errors.videoUrl}
-          <Helper color="red" class="mb-2"><span class="font-medium">Oh, snapp!</span> {errors.videoUrl}</Helper>
-        {/if}
-        <FloatingLabelInput size="small" bind:value={formValues.videoUrl} style="outlined"type="text" id="video_url" label="Youtube video url" />
-      </div>
+        <div>
+          {#if errors.videoUrl}
+            <Helper color="red" class="mb-2"><span class="font-medium">Oh, snapp!</span> {errors.videoUrl}</Helper>
+          {/if}
+          <FloatingLabelInput size="small" bind:value={formValues.videoUrl} style="outlined"type="text" id="video_url" label="Youtube video url" />
+        </div>
 
-      <div class="col-span-2">
-        <Select size="md" items={$muscleGroups} bind:value="{formValues.muscleGroup}" required />
+        <div>
+          <Select size="md" items={$muscleGroups} bind:value="{formValues.muscleGroup}" required />
+        </div>
       </div>
-      <div class="col-span-1">
-        <Button size="md" color="dark" type="submit">add</Button>
-      </div>
+      <Button size="xs" color="dark" type="submit">save exercise</Button>
     </form>
 
     <TableSearch  placeholder="Search by exercise name" hoverable={true} bind:inputValue={searchTerm}>

@@ -126,7 +126,7 @@
 
         {#if newWorkout === true}
         <div>
-            <FloatingLabelInput  size="small" bind:value={formValues.name} style="outlined" type="text" id="workout_name" label="Workout Name" required />
+            <FloatingLabelInput class="mb-6" size="small" bind:value={formValues.name} style="outlined" type="text" id="workout_name" label="Workout Name" required />
         </div>
         <Table>
             <TableBody>
@@ -142,7 +142,10 @@
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.incrementBy} style="outlined" type="text" label="Increment By" required /></TableBodyCell>
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.restTime} style="outlined" type="text" label="Rest Time" required /></TableBodyCell>
                 <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.notes} style="outlined" type="text" label="Notes" /></TableBodyCell>
-                <TableBodyCell><Button color="red" size="xs" on:click={() => removeLine(i)}>delete</Button></TableBodyCell>
+                <TableBodyCell>
+                    <a href="#" on:click={() => removeLine(i)}
+                          class="text-red-400 hover:text-red-600">delete row</a>
+                </TableBodyCell>
               </TableBodyRow>
             {/each}
             </TableBody>
