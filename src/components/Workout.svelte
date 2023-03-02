@@ -128,29 +128,44 @@
         <div>
             <FloatingLabelInput class="mb-6" size="small" bind:value={formValues.name} style="outlined" type="text" id="workout_name" label="Workout Name" required />
         </div>
-        <Table>
-            <TableBody>
-            {#each formValues.exercises as exercise, i}
-              <TableBodyRow>
-                <TableBodyCell><Select size="md" items={selectExercises} bind:value="{exercise.exerciseID}" required /></TableBodyCell>
-                <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.sets} style="outlined" type="text" label="Sets" required /></TableBodyCell>
-                <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.reps} style="outlined" type="text" label="Reps" required /></TableBodyCell>
-                <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.startWeight} style="outlined" type="text" label="Start Weight" required /></TableBodyCell>
-              </TableBodyRow>
-              <TableBodyRow>
-                <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.endWeight} style="outlined" type="text" label="End Weight" required /></TableBodyCell>
-                <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.incrementBy} style="outlined" type="text" label="Increment By" required /></TableBodyCell>
-                <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.restTime} style="outlined" type="text" label="Rest Time" required /></TableBodyCell>
-                <TableBodyCell><FloatingLabelInput  size="small" bind:value={exercise.notes} style="outlined" type="text" label="Notes" /></TableBodyCell>
-                <TableBodyCell>
-                    <a href="#" on:click={() => removeLine(i)}
-                          class="text-red-400 hover:text-red-600">delete row</a>
-                </TableBodyCell>
-              </TableBodyRow>
-            {/each}
-            </TableBody>
-        </Table>
 
+        <div>
+            {#each formValues.exercises as exercise, i}
+                <div class="grid gap-6 mb-2 lg:grid-cols-4">
+                    <div>
+                        <Select size="md" items={selectExercises} bind:value="{exercise.exerciseID}" required />
+                    </div>
+                    <div>
+                        <FloatingLabelInput  size="small" bind:value={exercise.sets} style="outlined" type="text" label="Sets" required />
+                    </div>
+                    <div>
+                        <FloatingLabelInput  size="small" bind:value={exercise.reps} style="outlined" type="text" label="Reps" required />
+                    </div>
+                    <div>
+                        <FloatingLabelInput  size="small" bind:value={exercise.startWeight} style="outlined" type="text" label="Start Weight" required />
+                    </div>
+                </div>
+                <div class="grid gap-6 lg:grid-cols-4">
+                    <div>
+                        <FloatingLabelInput  size="small" bind:value={exercise.endWeight} style="outlined" type="text" label="End Weight" required />
+                    </div>
+                    <div>
+                        <FloatingLabelInput  size="small" bind:value={exercise.incrementBy} style="outlined" type="text" label="Increment By" required />
+                    </div>
+                    <div>
+                        <FloatingLabelInput  size="small" bind:value={exercise.restTime} style="outlined" type="text" label="Rest Time" required />
+                    </div>
+                    <div>
+                        <FloatingLabelInput  size="small" bind:value={exercise.notes} style="outlined" type="text" label="Notes" />
+                    </div>
+                </div>
+                <div class="text-center my-2">
+                    <a href="#" on:click={() => removeLine(i)}
+                        class="text-red-400 hover:text-red-600">delete row</a>
+                </div>
+            {/each}
+        </div>
+        
         <Button on:click={addLine} size="xs" color="dark">add exercise</Button>
         {/if}
         <Button type="submit" size="xs" color="dark">save workout</Button>
