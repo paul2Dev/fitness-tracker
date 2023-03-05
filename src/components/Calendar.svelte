@@ -8,14 +8,16 @@
     let modalTitle = '';
     let modalContent = '';
     let currentWorkout = null;
+    let currentWorkoutLog = null;
 
     function showWorkoutDetails(event) {
       defaultModal = true;
       if(event.target.dataset.workoutLogId != '') {
-        currentWorkout = $workoutsLog.find(workoutLog => workoutLog.id === event.target.dataset.workoutLogId);
+        currentWorkout = currentWorkoutLog = $workoutsLog.find(workoutLog => workoutLog.id === event.target.dataset.workoutLogId);
       } 
       if(event.target.dataset.workoutId != '') {
         currentWorkout = $workouts.find(workout => workout.id === event.target.dataset.workoutId);
+        currentWorkoutLog = $workoutsLog.find(workoutLog => workoutLog.id === event.target.dataset.workoutLogId);
       }
 
       modalTitle = currentWorkout.name;
@@ -64,6 +66,20 @@
       {@html modalContent}
     </p>
     {#if currentWorkout.exercises.length > 0}
+    <Table>
+      <TableHead>
+        <TableHeadCell>Workout Date</TableHeadCell>
+        <TableHeadCell>Workout Time</TableHeadCell>
+        <TableHeadCell>Calories Burned</TableHeadCell>
+      </TableHead>
+      <TableBody class="divide-y">
+        <TableBodyRow>
+          <TableBodyCell>{new Date(currentWorkoutLog.created_at).toLocaleString('en-us',{month:'short', year:'numeric', day:'numeric'})}</TableBodyCell>
+          <TableBodyCell>{currentWorkoutLog.workout_time}</TableBodyCell>
+          <TableBodyCell>{currentWorkoutLog.calories_burned}</TableBodyCell>
+        </TableBodyRow>
+      </TableBody>
+    </Table>
     <Table>
       <TableHead>
         <TableHeadCell>Exercise</TableHeadCell>

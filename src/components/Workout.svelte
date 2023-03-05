@@ -20,6 +20,8 @@
                 id: crypto.randomUUID(),
                 name: '',
                 description: '',
+                calories_burned: 0,
+                workout_time: 0,
                 created_at: new Date(),
                 workoutId: '',
                 exercises: [
@@ -121,6 +123,14 @@
             </div>
             <div>
                 <DateInput bind:value={formValues.created_at} format="dd/MM/yyyy" />
+            </div>
+        </div>
+        <div class="grid gap-6 mb-6 md:grid-cols-3">
+            <div>
+                <FloatingLabelInput  size="small" bind:value={formValues.workout_time} style="outlined" type="text" id="workout_time" label="Workout Time" required />
+            </div>
+            <div>
+                <FloatingLabelInput  size="small" bind:value={formValues.calories_burned} style="outlined" type="text" id="calories_burned" label="Calories Burned" required />
             </div>
         </div>
         {/if}
