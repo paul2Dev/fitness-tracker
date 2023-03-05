@@ -125,6 +125,7 @@ let defaultWorkouts = [
     {
         id: crypto.randomUUID(),
         name: "Chest Day",
+        created_at: new Date(),
         exercises: [
             {
                 exerciseID: get(exercises).find((exercise) => exercise.name === "Bench Press").id,
@@ -152,6 +153,7 @@ let defaultWorkouts = [
     {
         id: crypto.randomUUID(),
         name: "Chest Day 2",
+        created_at: new Date(),
         exercises: [
             {
                 exerciseID: get(exercises).find((exercise) => exercise.name === "Bench Press").id,

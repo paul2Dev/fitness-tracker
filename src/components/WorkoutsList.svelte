@@ -28,7 +28,7 @@
 
 <div class="bg-white p-6 rounded-lg shadow-md">
     <Timeline>
-      {#each $workouts as workout}
+      {#each $workouts.sort((a, b) => b.created_at - a.created_at) as workout}
       <TimelineItem title="" date="{workout.name}">
         <svelte:fragment slot="icon">
             <div class="flex items-center">

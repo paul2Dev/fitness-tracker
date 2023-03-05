@@ -40,6 +40,7 @@
             values = {
                 id: crypto.randomUUID(),
                 name: '',
+                created_at: new Date(),
                 exercises: [
                     {
                         id: 0,
